@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 組件的一般資訊是由下列的屬性集控制。
 // 變更這些屬性的值即可修改組件的相關
 // 資訊。
-[assembly: AssemblyTitle("DeepLearning-Flow")]
+[assembly: AssemblyTitle("FlowAnalysis Master")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DeepLearning-Flow")]
+[assembly: AssemblyProduct("FlowAnalysis Master")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 下列 GUID 為專案公開 (Expose) 至 COM 時所要使用的 typelib ID
-[assembly: Guid("f2f62cff-94b7-4e3e-ad6d-89206328c882")]
+[assembly: Guid("5f3f2bfa-25ed-42ab-8b58-635d7c7dfe3c")]
 
 // 組件的版本資訊由下列四個值所組成: 
 //
