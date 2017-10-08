@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowAnalysis Master", "FlowAnalysis Master\FlowAnalysis Master.csproj", "{5F3F2BFA-25ED-42AB-8B58-635D7C7DFE3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowAnalysis", "FlowAnalysis Master\FlowAnalysis.csproj", "{5F3F2BFA-25ED-42AB-8B58-635D7C7DFE3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineWebApi", "LineWebApi\LineWebApi.csproj", "{360079EE-5690-4215-A55D-55F178A9C982}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{5F3F2BFA-25ED-42AB-8B58-635D7C7DFE3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F3F2BFA-25ED-42AB-8B58-635D7C7DFE3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F3F2BFA-25ED-42AB-8B58-635D7C7DFE3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{360079EE-5690-4215-A55D-55F178A9C982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{360079EE-5690-4215-A55D-55F178A9C982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{360079EE-5690-4215-A55D-55F178A9C982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{360079EE-5690-4215-A55D-55F178A9C982}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39976543-5BD4-4361-AB32-21F2AFC5A393}
 	EndGlobalSection
 EndGlobal

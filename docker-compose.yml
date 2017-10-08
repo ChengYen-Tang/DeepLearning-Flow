@@ -1,8 +1,0 @@
-version: '2.1'
-
-services:
-  flowanalysismaster:
-    image: flowanalysismaster
-    build:
-      context: .\FlowAnalysis Master
-      dockerfile: Dockerfile

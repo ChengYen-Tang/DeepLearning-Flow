@@ -15,6 +15,7 @@ namespace FlowAnalysis.Models
 
         public virtual DbSet<NetFlow> NetFlows { get; set; }
         public virtual DbSet<FlowSampleStatistics> FlowSampleStatistics { get; set; }
+        public virtual DbSet<AnalysisResult> AnalysisResults { get; set; }
         //public virtual DbSet<DataFlowStatistics> DataFlowStatistics { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -84,5 +85,16 @@ namespace FlowAnalysis.Models
         public int Count { get; set; }
 
         public Int64 ByteTotal { get; set; }
+    }
+
+    public partial class AnalysisResult
+    {
+        public Guid Id { get; set; }
+
+        public DateTime AnalysisTime { get; set; }
+
+        public string IP { get; set; }
+
+        public int Result { get; set; }
     }
 }

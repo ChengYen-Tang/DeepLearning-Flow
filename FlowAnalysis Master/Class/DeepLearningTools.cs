@@ -53,17 +53,17 @@ namespace FlowAnalysis.Class
             return (Input.ToArray(),ANS.ToArray());
         }
 
-        public static double[][] FlowStatisticsToLearningData(DataFlowStatistics[] FlowStatistics)
+        public static List<(double[], string)> FlowStatisticsToLearningData(DataFlowStatistics[] FlowStatistics)
         {
-            List<double[]> LearningData = new List<double[]>();
+            List<(double[], string)> LearningData = new List<(double[], string)>();
             object LearningDataLock = new object();
 
             //列出單位時間有哪些IP
             string[] FlowSourceAddress = FlowStatistics.Select(c => c.Source_Address)
                 .Distinct().ToArray();
 
-            Parallel.For<List<double[]>>(0, FlowSourceAddress.Length,
-                () => { return new List<double[]>(); },
+            Parallel.For<List<(double[],string)>>(0, FlowSourceAddress.Length,
+                () => { return new List<(double[], string)>(); },
                 (Index, State, DataList) =>
                 {
 
@@ -71,7 +71,7 @@ namespace FlowAnalysis.Class
                         = FlowStatistics.Where(c => c.Source_Address == FlowSourceAddress[Index])
                             .Select(c => (c.Protocal, c.Port, c.Count, c.ByteTotal)).ToList();
 
-                    DataList.Add(ToLearningData(FlowStatisticsModelsList));
+                    DataList.Add((ToLearningData(FlowStatisticsModelsList), FlowSourceAddress[Index]));
 
                     return DataList;
                 },
@@ -81,7 +81,7 @@ namespace FlowAnalysis.Class
                         LearningData.AddRange(DataList);
                 });
 
-            return LearningData.ToArray();
+            return LearningData;
         }
 
         public static DateTime[][] TimeGroupRandom(this List<DateTime> TimeList,int Quantity)

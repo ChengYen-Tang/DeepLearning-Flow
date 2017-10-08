@@ -170,6 +170,22 @@ namespace FlowAnalysis.Class
             return FlowArrange(0, 0, Min, Sec);
         }
 
+        public static string[] FlowIP(int Day, int Hour, int Min, int Sec)
+        {
+            DateTime StartTime = DateTime.Now
+                .AddDays(-Day)
+                .AddHours(-Hour)
+                .AddMinutes(-Min)
+                .AddSeconds(-Sec);
+
+            DateTime EndTime = StartTime.AddMinutes(1);
+
+            return db.NetFlows
+                .Where(c => c.Start_Time >= StartTime && c.Start_Time <= EndTime && c.Source_Address.Contains("172.16.62.")
+                ).Select(c => c.Source_Address).Distinct().ToArray();
+
+        }
+
         private static List<DataFlowStatistics> FlowArrange(int Day, int Hour, int Min, int Sec)
         {
             object FlowSampleListLock = new object();
@@ -265,8 +281,6 @@ namespace FlowAnalysis.Class
 
             //db.DataFlowStatistics.AddRange(FlowStatisticsList);
             //db.SaveChanges();
-
-            Console.WriteLine("Time :{0} Done", StartTime);
 
             return FlowStatisticsList;
         }
