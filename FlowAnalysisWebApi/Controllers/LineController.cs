@@ -30,7 +30,7 @@ namespace LineWebApi.Controllers
                 //回覆API OK
                 return new HttpResponseMessage(System.Net.HttpStatusCode.OK);
             }
-            catch (Exception ex)
+            catch
             {
                 return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError);
             }
