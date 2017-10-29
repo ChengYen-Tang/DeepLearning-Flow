@@ -11,6 +11,7 @@ using System.Threading;
 using System.Linq;
 using FlowAnalysis.Models;
 using FlowAnalysis.Class;
+using Newtonsoft.Json;
 
 namespace Project.Module
 {
@@ -72,6 +73,51 @@ namespace Project.Module
 
             if (ErrorMessage.Count != 0)
                 LineBot(string.Join("\n", ErrorMessage));
+        }
+
+        public static void LockIP(this List<(string, int)> Input)
+        {
+            List<string> IPs = Input.Select(c => c.Item1).ToList();
+
+            string Message = JsonConvert.SerializeObject(
+                new {
+                    Action = "Lock",
+                    IP = JsonConvert.SerializeObject(IPs)
+                });
+
+            string Url = "http://172.16.61.26//api/Lock";
+            HttpWebRequest request = WebRequest.Create(Url) as HttpWebRequest;
+            request.Method = WebRequestMethods.Http.Post;
+            request.KeepAlive = true;
+            request.ContentType = "application/x-www-form-urlencoded";
+            string param = "=" + Message;//注意有個「=」
+            byte[] bs = Encoding.Default.GetBytes(param);
+            request.ContentLength = bs.Length;
+
+            using (Stream reqStream = request.GetRequestStream())
+            {
+                reqStream.Write(bs, 0, bs.Length);
+                reqStream.Flush();
+            }
+            try
+            {
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        //Server回傳的資料。
+                        Stream data = response.GetResponseStream();
+                        StreamReader sr = new StreamReader(data);
+                        string retMsg = sr.ReadToEnd();
+                        sr.Close();
+                        data.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
         }
 
         public static void LineBot(string Message)

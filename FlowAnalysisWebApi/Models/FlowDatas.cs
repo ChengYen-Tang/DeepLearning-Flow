@@ -1,4 +1,4 @@
-namespace LineWebApi.Models
+namespace FlowAnalysisWebApi.Models
 {
     using System;
     using System.Data.Entity;
@@ -23,7 +23,7 @@ namespace LineWebApi.Models
         {
             public Guid Id { get; set; }
             public string IP { get; set; }
-            public Database Time { get; set; }
+            public DateTime Time { get; set; }
             public string Reason { get; set; }
         }
 

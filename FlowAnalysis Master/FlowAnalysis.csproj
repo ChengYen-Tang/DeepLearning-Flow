@@ -87,11 +87,6 @@
     <Compile Include="Class\DataAggregated.cs" />
     <Compile Include="Class\DeepLearningTools.cs" />
     <Compile Include="Class\Module.cs" />
-    <Compile Include="Migrations\201709221629317_AddEName.cs" />
-    <Compile Include="Migrations\201709221629317_AddEName.Designer.cs">
-      <DependentUpon>201709221629317_AddEName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FlowDatas.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,11 +97,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709221629317_AddEName.resx">
-      <DependentUpon>201709221629317_AddEName.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Accord.3.7.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.7.0\build\Accord.targets')" />

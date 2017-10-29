@@ -144,6 +144,7 @@ namespace FlowAnalysis
 
                 List<(string, int)> Analysis = BehaviorAnalysis.Analysis(FlowAggregated.Collect(3, 0).Where(c => Buffer.Contains(c.Source_Address)).ToList());
                 Analysis.CallLineBot(Time);
+                Analysis.LockIP();
                 Analysis.SaveToDataBase(Time);
 
                 foreach (var q in Analysis)
@@ -168,6 +169,7 @@ namespace FlowAnalysis
                 {
                     List<(string, int)> Analysis = BehaviorAnalysis.Analysis(FlowAggregated.Collect(3, 0).Where(c => c.Source_Address.Contains("172.16.62.")).ToList());
                     Analysis.CallLineBot(NowTime);
+                    Analysis.LockIP();
                     Analysis.SaveToDataBase(NowTime);
 
                     foreach (var q in Analysis)
