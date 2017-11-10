@@ -85,7 +85,7 @@ namespace Project.Module
                     IP = JsonConvert.SerializeObject(IPs)
                 });
 
-            string Url = "http://172.16.61.26//api/Lock";
+            string Url = "http://172.16.61.26/api/Lock";
             HttpWebRequest request = WebRequest.Create(Url) as HttpWebRequest;
             request.Method = WebRequestMethods.Http.Post;
             request.KeepAlive = true;
