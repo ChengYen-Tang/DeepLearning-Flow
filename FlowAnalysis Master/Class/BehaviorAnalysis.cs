@@ -12,8 +12,10 @@ using System.Diagnostics;
 
 namespace FlowAnalysis.Class
 {
+    //特徵學習
     public class FeatureLearning
     {
+        //DBN存放路徑
         private string Path = string.Empty;
         private DeepBeliefNetwork DBNetwork;
 
@@ -22,13 +24,16 @@ namespace FlowAnalysis.Class
             Path = DLSavePath;
         }
 
+        //異常使用者的網路使用資訊收集
         public static void AddUserBehaviorToFlowSampleStatistics(
             string IPAddress, int Index)
         {
             SampleAggregated SC = new SampleAggregated(IPAddress, Index);
             SC.Collect(10, 0);
+            SC.Dispose();
         }
 
+        //開始學習
         public bool Run()
         {
             bool IsDone = false;
@@ -38,13 +43,16 @@ namespace FlowAnalysis.Class
                 FlowDatas db = new FlowDatas();
                 (double[][] Inputs, double[][] Outputs) 
                     = DeepLearningTools.FlowSampleToLearningData(db.FlowSampleStatistics.Where(c => c.BehaviorNumber != 0).ToArray());
+                db.Dispose();
+                //產生DBN網路
                 DBNetwork = new DeepBeliefNetwork(Inputs.First().Length,
                     (int)((Inputs.First().Length + Outputs.First().Length) / 1.5),
                     (int)((Inputs.First().Length + Outputs.First().Length) / 2),
                     Outputs.First().Length);
+                //亂數打亂整個網路參數
                 new GaussianWeights(DBNetwork, 0.1).Randomize();
                 DBNetwork.UpdateVisibleWeights();
-
+                //設定無監督學習組態
                 DeepBeliefNetworkLearning teacher
                     = new DeepBeliefNetworkLearning(DBNetwork)
                     {
@@ -65,7 +73,7 @@ namespace FlowAnalysis.Class
                 double[][][] batches = Inputs.Subgroups(groups1);
                 //學習指定圖層的數據。
                 double[][][] layerData;
-
+                //運行無監督學習。
                 for (int layerIndex = 0; layerIndex < DBNetwork.Machines.Count - 1; layerIndex++)
                 {
                     teacher.LayerIndex = layerIndex;
@@ -109,10 +117,11 @@ namespace FlowAnalysis.Class
         }
     }
 
+    //分析用模組
     public static class BehaviorAnalysis
     {
         private static DeepBeliefNetwork DBNetwork;
-
+        //初始化載入DBN網路狀態
         public static bool Initialization(string Path)
         {
             try
@@ -128,6 +137,7 @@ namespace FlowAnalysis.Class
             return true;
         }
 
+        //基本的篩選，簡單過濾正常使用者
         public static List<(string, int)> Analysis(List<DataFlowStatistics> FlowStatistics)
         {
             List<(string, int)> Result = new List<(string, int)>();
@@ -145,6 +155,7 @@ namespace FlowAnalysis.Class
             return Result;
         }
 
+        //進階分析，分析行為屬於哪種攻擊手法
         private static List<(string, int)> DeepAnalysis(DataFlowStatistics[] FlowStatistics)
         {
             List<(double[], string)> Inputs = DeepLearningTools.FlowStatisticsToLearningData(FlowStatistics);

@@ -9,7 +9,8 @@ using System.Net;
 
 namespace FlowAnalysis.Class
 {
-    public class SampleAggregated
+    //樣本蒐集
+    public class SampleAggregated:IDisposable
     {
         private FlowDatas db = new FlowDatas();
         private string IPv4Address = string.Empty;
@@ -40,6 +41,7 @@ namespace FlowAnalysis.Class
             FlowArrange(0, 0, Min, Sec);
         }
 
+        //到NetFlow存放區把指定使用者的NetFlow資訊整理後轉存到特徵庫
         private void FlowArrange(int Day, int Hour, int Min, int Sec)
         {
             object FlowSampleListLock = new object();
@@ -140,6 +142,7 @@ namespace FlowAnalysis.Class
             Console.WriteLine("IP :{0} Done", IPv4Address);
         }
 
+        //重新指定要抓的使用者及行為識別
         public void Reset(string IPv4IP, int SampleBehaviorNumber)
         {
             if (IPAddress.TryParse(IPv4IP, out IPAddress IP))
@@ -150,8 +153,14 @@ namespace FlowAnalysis.Class
             else
                 throw new ArgumentException("IP格式錯誤");
         }
+
+        public void Dispose()
+        {
+            db.Dispose();
+        }
     }
 
+    //提取需要的資料
     public static class FlowAggregated
     {
         private static FlowDatas db = new FlowDatas();
@@ -169,7 +178,7 @@ namespace FlowAnalysis.Class
         {
             return FlowArrange(0, 0, Min, Sec);
         }
-
+        //提取某個時間點的所有在線上的IP
         public static string[] FlowIP(int Day, int Hour, int Min, int Sec)
         {
             DateTime StartTime = DateTime.Now
@@ -185,7 +194,7 @@ namespace FlowAnalysis.Class
                 ).Select(c => c.Source_Address).Distinct().ToArray();
 
         }
-
+        //提取並整理某個時間點使用者的netflow資料
         private static List<DataFlowStatistics> FlowArrange(int Day, int Hour, int Min, int Sec)
         {
             object FlowSampleListLock = new object();

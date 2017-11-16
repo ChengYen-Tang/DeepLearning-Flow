@@ -26,10 +26,5 @@ namespace IP.Models
         }
     
         public virtual DbSet<Table> Table { get; set; }
-
-        internal Database1Entities Where(Func<object, bool> p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

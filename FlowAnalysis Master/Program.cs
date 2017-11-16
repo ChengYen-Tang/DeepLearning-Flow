@@ -193,6 +193,7 @@ namespace FlowAnalysis
             }
         }
 
+        //把工作分派給其他Slave
         private static void AssignationWork(HandleServer NetworkServer, List<List<string>> Work, int i)
         {
             Task.Run(() => {

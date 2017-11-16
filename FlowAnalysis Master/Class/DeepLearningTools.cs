@@ -9,6 +9,7 @@ namespace FlowAnalysis.Class
 {
     public static class DeepLearningTools
     {
+        //將樣本資料轉換成適合學習的資料格式
         public static (double[][], double[][]) FlowSampleToLearningData(FlowSampleStatistics[] FlowSamples)
         {
             List<(double[],double[])> LearningData = new List<(double[], double[])>();
@@ -52,7 +53,7 @@ namespace FlowAnalysis.Class
 
             return (Input.ToArray(),ANS.ToArray());
         }
-
+        //把Flow Data轉換成適合分析的Data格式
         public static List<(double[], string)> FlowStatisticsToLearningData(DataFlowStatistics[] FlowStatistics)
         {
             List<(double[], string)> LearningData = new List<(double[], string)>();
@@ -83,41 +84,14 @@ namespace FlowAnalysis.Class
 
             return LearningData;
         }
-
-        public static DateTime[][] TimeGroupRandom(this List<DateTime> TimeList,int Quantity)
-        {
-            if (Quantity < 1)
-                throw new ArgumentException("Quantity 必須大於0");
-
-            Random Rnd = new Random(Guid.NewGuid().GetHashCode());
-
-            List<DateTime[]> Groups = new List<DateTime[]>();
-
-            while(TimeList.Count >= Quantity)
-            {
-                DateTime[] Group = new DateTime[Quantity];
-
-                for (int i = 0;i < Quantity;i++)
-                {
-                    DateTime Time = TimeList[Rnd.Next(0, TimeList.Count)];
-                    Group[i] = Time;
-                    TimeList.Remove(Time);
-                }
-
-                Groups.Add(Group);
-            }
-
-            if (TimeList.Count != 0)
-                Groups.Add(TimeList.ToArray());
-
-            return Groups.ToArray();
-        }
-
+        
+        //將機器學習的輸出轉成容易檢視的結果
         public static double FormatOutputResult(double[] output)
         {
             return output.ToList().IndexOf(output.Max());
         }
 
+        //Flow Data資料映射到DBN的輸入源
         private static double[] ToLearningData(List<(int, int, int, Int64)> Input)
         {
             double[] LearningData = new double[14638];
@@ -217,16 +191,7 @@ namespace FlowAnalysis.Class
                 return 1;
         }
 
-        private static double ByteToLearningType(Int64 Byte)
-        {
-            double tmp = Convert.ToDouble(Byte) / 6000000000;
-
-            if (tmp > 1)
-                return 1;
-
-            return tmp;
-        }
-
+        //
         private static double[] Decoder(int Size, int Input)
         {
             if (Input > Size)
