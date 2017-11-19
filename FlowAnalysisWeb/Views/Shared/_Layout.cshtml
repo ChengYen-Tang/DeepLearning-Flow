@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 網路行為分析</title>
     @Styles.Render("~/Content/css")
-    @*@Scripts.Render("~/bundles/modernizr")*@
+    @Scripts.Render("~/bundles/modernizr")
     @RenderSection("css", required: false)
-    @*<link href="~/CSS/vendor/metisMenu/metisMenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/CSS/vendor/metisMenu/metisMenu.min.css" rel="stylesheet" type="text/css" />
     <link href="~/CSS/dist/css/sb-admin-2.css" rel="stylesheet" type="text/css" />
-    <link href="~/CSS/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/CSS/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="wrapper">
@@ -34,7 +34,7 @@
                             <a href="./UsersAdmin"><i class="fa fa-dashboard fa-fw"></i> 儀錶板</a>
                         </li>
                         <li>
-                            <a href="./Result/HistoricalRecord"><i class="fa glyphicon-time fa-fw"></i> 歷史紀錄</a>
+                            <a href="./Result/HistoricalRecord"><i class="glyphicon glyphicon-time"></i> 歷史紀錄</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i> 管制名單<span class="fa arrow"></span></a>
@@ -60,7 +60,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    @*<script src="~/CSS/vendor/metisMenu/metisMenu.min.js"></script>
-    <script src="~/CSS/dist/js/sb-admin-2.js"></script>*@
+    <script src="~/CSS/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="~/CSS/dist/js/sb-admin-2.js"></script>
 </body>
 </html>

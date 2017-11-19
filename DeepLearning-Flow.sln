@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowAnalysis", "FlowAnalysi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowAnalysisWebApi", "FlowAnalysisWebApi\FlowAnalysisWebApi.csproj", "{360079EE-5690-4215-A55D-55F178A9C982}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IP", "IP\IP.csproj", "{B68C7604-0534-4F57-B539-6EFE4FF6D98F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowAnalysisWeb", "FlowAnalysisWeb\FlowAnalysisWeb.csproj", "{4434DC39-FF40-4F06-B895-8A8177C6FB06}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{360079EE-5690-4215-A55D-55F178A9C982}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{360079EE-5690-4215-A55D-55F178A9C982}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{360079EE-5690-4215-A55D-55F178A9C982}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B68C7604-0534-4F57-B539-6EFE4FF6D98F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B68C7604-0534-4F57-B539-6EFE4FF6D98F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B68C7604-0534-4F57-B539-6EFE4FF6D98F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B68C7604-0534-4F57-B539-6EFE4FF6D98F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4434DC39-FF40-4F06-B895-8A8177C6FB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4434DC39-FF40-4F06-B895-8A8177C6FB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4434DC39-FF40-4F06-B895-8A8177C6FB06}.Release|Any CPU.ActiveCfg = Release|Any CPU

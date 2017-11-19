@@ -64,19 +64,37 @@ namespace FlowAnalysisWeb.Controllers
 
         public async Task<ActionResult> HistoricalRecord(DateTime? Date,string IP)
         {
-            List<AnalysisResults> analysisResults;
+            List<AnalysisResults> SQLAnalysisResults;
+            List<ResultViewModels> AnalysisResults = new List<ResultViewModels>();
+
+
+
             if (Date == null)
             {
-                analysisResults = await db.AnalysisResults.Where(c => c.IP.Contains(IP)).OrderByDescending(c => c.AnalysisTime).ToListAsync();
+                if (IP != "" && IP != null)
+                    SQLAnalysisResults = await db.AnalysisResults.Where(c => c.IP.Contains(IP)).OrderByDescending(c => c.AnalysisTime).ToListAsync();
+                else
+                    SQLAnalysisResults = await db.AnalysisResults.OrderByDescending(c => c.AnalysisTime).ToListAsync();
                 Date = DateTime.Today;
             }
             else
             {
                 DateTime EndTime = Date.Value.AddDays(1);
-                analysisResults = await db.AnalysisResults.Where(c => c.AnalysisTime >= Date && c.AnalysisTime < EndTime && c.IP.Contains(IP)).OrderByDescending(c => c.AnalysisTime).ToListAsync();
+                if (IP != "" && IP != null)
+                    SQLAnalysisResults = await db.AnalysisResults.Where(c => c.AnalysisTime >= Date && c.AnalysisTime < EndTime && c.IP.Contains(IP)).OrderByDescending(c => c.AnalysisTime).ToListAsync();
+                else
+                    SQLAnalysisResults = await db.AnalysisResults.Where(c => c.AnalysisTime >= Date && c.AnalysisTime < EndTime).OrderByDescending(c => c.AnalysisTime).ToListAsync();
             }
             ViewBag.datetimepicker = Date.Value.Year + "-" + Date.Value.Month + "-" + Date.Value.Day;
-            return View(analysisResults);
+            ViewBag.IPAddress = IP;
+            AnalysisResults = SQLAnalysisResults.Select(c => new ResultViewModels
+            {
+                Id = c.Id,
+                AnalysisTime = c.AnalysisTime,
+                IP = c.IP,
+                Result = Conversion(c.Result)
+            }).ToList();
+            return View(AnalysisResults);
         }
 
         //public ActionResult RefreshData( string type, int? page)
