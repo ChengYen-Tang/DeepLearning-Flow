@@ -160,8 +160,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\FlowDatas.cs" />
-    <Compile Include="Models\ResultViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\ResultViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -453,7 +453,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\LockTables\Delete.cshtml" />
     <Content Include="Views\LockTables\Index.cshtml" />
-    <Content Include="Views\Result\Chart.cshtml" />
     <Content Include="Views\Result\HistoricalRecord.cshtml" />
     <Content Include="Views\Result\Index.cshtml" />
     <Content Include="Views\Result\Index2.cshtml" />
@@ -464,6 +463,9 @@
     <Content Include="Views\WhiteLists\Delete.cshtml" />
     <Content Include="Views\WhiteLists\Edit.cshtml" />
     <Content Include="Views\WhiteLists\Index.cshtml" />
+    <Content Include="Views\Result\InstantResults.cshtml" />
+    <Content Include="Views\Result\Chart.cshtml" />
+    <Content Include="Views\Result\Statistics.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

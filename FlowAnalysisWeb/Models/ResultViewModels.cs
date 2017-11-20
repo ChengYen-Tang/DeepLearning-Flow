@@ -11,4 +11,11 @@ namespace FlowAnalysisWeb.Models
     {
         public new string Result { get; set; }
     }
+
+    public class StatisticsViewModels
+    {
+        public int Users { get; set; }
+        public int White { get; set; }
+        public int Lock { get; set; }
+    }
 }

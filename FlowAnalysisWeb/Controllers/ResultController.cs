@@ -19,9 +19,6 @@ namespace FlowAnalysisWeb.Controllers
         //    Models.Database1Entities db = new Models.Database1Entities();
         //    List<IP.Models.Table> result = (db.Table.OrderBy(p => p.Id_F).ThenBy(n => n.IPAddr_F).ToList());
 
-
-
-
         //    if (addrSearch != "")
         //    {
         //        result = (result.Where(x => x.IPAddr_F == addrSearch || addrSearch == null).ToList());
@@ -61,11 +58,69 @@ namespace FlowAnalysisWeb.Controllers
         //    Result = result;
         //    return View(Result.ToPagedList(page ?? 1, 20));  
         //}
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+
+        public ActionResult Statistics()
+        {
+            StatisticsViewModels SVM = new StatisticsViewModels();
+            SVM.Lock = db.LockTables.Count();
+            SVM.White = db.WhiteLists.Count();
+            DateTime StartTime = DateTime.Now.AddMinutes(-1);
+            StartTime = StartTime.AddSeconds(-StartTime.Second).AddMilliseconds(-StartTime.Millisecond);
+            DateTime EndTime = DateTime.Now;
+            EndTime = EndTime.AddSeconds(-EndTime.Second).AddMilliseconds(-EndTime.Millisecond);
+            SVM.Users = db.AnalysisResults.Where(c => c.AnalysisTime >= StartTime && c.AnalysisTime < EndTime).Count();
+
+            return View(SVM);
+        }
+
+        public async Task<ActionResult> Chart()
+        {
+            DateTime SearchDate = DateTime.Today.AddDays(-1);
+            List<AnalysisResults> SQLAnalysisResults = await db.AnalysisResults.Where(c => c.AnalysisTime >= SearchDate).ToListAsync();
+            string Time = "";
+            string Value = "";
+
+            for (int i=0;i < 24;i++)
+            {
+                Time += '"' + SearchDate.AddHours(i).ToString("hh:mm") + '"' + ",";
+                Value += SQLAnalysisResults.Where(c => c.AnalysisTime >= SearchDate.AddHours(i) && c.AnalysisTime < SearchDate.AddHours(i + 1)).Count() + ",";
+            }
+
+            ViewBag.Time = Time;
+            ViewBag.Value = Value;
+            return View();
+        }
+
+        public async Task<ActionResult> InstantResults()
+        {
+            List<AnalysisResults> SQLAnalysisResults;
+            List<ResultViewModels> AnalysisResults;
+
+            DateTime StartTime = DateTime.Now.AddMinutes(-1);
+            StartTime = StartTime.AddSeconds(-StartTime.Second).AddMilliseconds(-StartTime.Millisecond);
+            DateTime EndTime = DateTime.Now;
+            EndTime = EndTime.AddSeconds(-EndTime.Second).AddMilliseconds(-EndTime.Millisecond);
+            SQLAnalysisResults = await db.AnalysisResults.Where(c => c.AnalysisTime >= StartTime && c.AnalysisTime < EndTime).ToListAsync();
+            AnalysisResults = SQLAnalysisResults.Select(c => new ResultViewModels
+            {
+                Id = c.Id,
+                AnalysisTime = c.AnalysisTime,
+                IP = c.IP,
+                Result = Conversion(c.Result)
+            }).ToList();
+
+            return View(AnalysisResults);
+        }
 
         public async Task<ActionResult> HistoricalRecord(DateTime? Date,string IP)
         {
             List<AnalysisResults> SQLAnalysisResults;
-            List<ResultViewModels> AnalysisResults = new List<ResultViewModels>();
+            List<ResultViewModels> AnalysisResults;
 
 
 
@@ -97,10 +152,10 @@ namespace FlowAnalysisWeb.Controllers
             return View(AnalysisResults);
         }
 
-        //public ActionResult RefreshData( string type, int? page)
-        //{
-        //    return View(Result.ToPagedList(page ?? 1, 20));
-        //}
+        public ActionResult RefreshData()
+        {
+            return View();
+        }
 
         //public ActionResult Chart(string addr)
         //{

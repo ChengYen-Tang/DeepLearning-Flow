@@ -1,50 +1,5 @@
-﻿@model PagedList.IPagedList<IP.Models.Table>
-@using PagedList.Mvc;
-@using PagedList;
-@{
-    ViewBag.Title = "Index";
-    Layout = null;
-}
-
-<div  style="font-family:Arial">
-    <table class="TB_COLLAPSE">
-        <caption>IPResult   @(DateTime.Now.ToLongTimeString()) </caption>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>IPaddr</th>
-                <th>Time</th>
-                <th>RiskLevel</th>
-            </tr>
-        </thead>
-        @if (Model.Count() == 0)
-            {
-            <tr>
-                <td colspan="4">
-                    No records match search criteria
-                </td>
-            </tr>
-        }
-        else
-        {
-            foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id_F)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IPAddr_F)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Time_F)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Result_F)
-                    </td>
-                </tr>
-
-            }
-        }
-    </table>
+﻿<div  style="font-family:Arial">
+    <h1>
+        2d3as4fasd5f6afaf
+        </h1>
 </div>
