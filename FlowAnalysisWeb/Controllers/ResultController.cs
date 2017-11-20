@@ -12,52 +12,7 @@ namespace FlowAnalysisWeb.Controllers
     public class ResultController : Controller
     {
         FlowDatas db = new FlowDatas();
-        //static List<IP.Models.Table> Result;
 
-        //public ActionResult Index(DateTime? SSTime, DateTime? SETime, int? Srisk,string addrSearch, string type, int? page)
-        //{
-        //    Models.Database1Entities db = new Models.Database1Entities();
-        //    List<IP.Models.Table> result = (db.Table.OrderBy(p => p.Id_F).ThenBy(n => n.IPAddr_F).ToList());
-
-        //    if (addrSearch != "")
-        //    {
-        //        result = (result.Where(x => x.IPAddr_F == addrSearch || addrSearch == null).ToList());
-        //    }
-        //    if (Srisk == 1|| Srisk == 2|| Srisk == 3)
-        //    {
-        //        result = (result.Where(x => x.Result_F == Srisk).ToList());
-        //    }
-        //    if (SSTime!=null || SETime != null)
-        //    {
-
-        //        if (SSTime != null )
-        //        {
-        //            result = (result.Where(x => x.Time_F >= SSTime).ToList());
-        //        }
-        //        if (SETime != null)
-        //        {
-        //            result = (result.Where(x => x.Time_F <= SETime).ToList());
-        //        }
-
-        //    }
-
-
-
-        //    switch (type)
-        //    {
-        //        case "Risk":
-        //            result = (result.OrderBy(p => p.Result_F).ThenBy(n => n.IPAddr_F).ToList());
-        //            break;
-        //        case "Time":
-        //            result = (result.OrderBy(p => p.Time_F).ThenBy(n => n.IPAddr_F).ToList());
-        //            break;
-        //        default:
-        //            result = (result.OrderBy(p => p.Id_F).ThenBy(n => n.IPAddr_F).ToList());
-        //            break;
-        //    }
-        //    Result = result;
-        //    return View(Result.ToPagedList(page ?? 1, 20));  
-        //}
         public ActionResult Index()
         {
             return View();
@@ -66,9 +21,11 @@ namespace FlowAnalysisWeb.Controllers
 
         public ActionResult Statistics()
         {
-            StatisticsViewModels SVM = new StatisticsViewModels();
-            SVM.Lock = db.LockTables.Count();
-            SVM.White = db.WhiteLists.Count();
+            StatisticsViewModels SVM = new StatisticsViewModels
+            {
+                Lock = db.LockTables.Count(),
+                White = db.WhiteLists.Count()
+            };
             DateTime StartTime = DateTime.Now.AddMinutes(-1);
             StartTime = StartTime.AddSeconds(-StartTime.Second).AddMilliseconds(-StartTime.Millisecond);
             DateTime EndTime = DateTime.Now;
@@ -80,7 +37,8 @@ namespace FlowAnalysisWeb.Controllers
 
         public async Task<ActionResult> Chart()
         {
-            DateTime SearchDate = DateTime.Today.AddDays(-1);
+            DateTime SearchDate = DateTime.Now.AddDays(-1);
+            SearchDate = SearchDate.AddMilliseconds(-SearchDate.Millisecond).AddSeconds(-SearchDate.Second).AddMinutes(-SearchDate.Minute);
             List<AnalysisResults> SQLAnalysisResults = await db.AnalysisResults.Where(c => c.AnalysisTime >= SearchDate).ToListAsync();
             string Time = "";
             string Value = "";
@@ -88,7 +46,7 @@ namespace FlowAnalysisWeb.Controllers
             for (int i=0;i < 24;i++)
             {
                 Time += '"' + SearchDate.AddHours(i).ToString("hh:mm") + '"' + ",";
-                Value += SQLAnalysisResults.Where(c => c.AnalysisTime >= SearchDate.AddHours(i) && c.AnalysisTime < SearchDate.AddHours(i + 1)).Count() + ",";
+                Value += SQLAnalysisResults.Where(c => c.AnalysisTime >= SearchDate.AddHours(i) && c.AnalysisTime < SearchDate.AddHours(i + 1)).Count()/60 + ",";
             }
 
             ViewBag.Time = Time;
@@ -151,24 +109,6 @@ namespace FlowAnalysisWeb.Controllers
             }).ToList();
             return View(AnalysisResults);
         }
-
-        public ActionResult RefreshData()
-        {
-            return View();
-        }
-
-        //public ActionResult Chart(string addr)
-        //{
-        //    Models.Database1Entities db = new Models.Database1Entities();
-        //    var result = (db.Table.Where(x => x.IPAddr_F == addr));
-        //    foreach (var item in result)
-        //    {
-
-        //    }
-        //    ViewBag.a = result;
-
-        //    return View();
-        //}
 
         public static string Conversion(int Input)
         {

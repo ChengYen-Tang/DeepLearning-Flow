@@ -1,24 +1,61 @@
-﻿<header>
-    <script src="jQuery/jquery-1.4.1.min.js" type="text/javascript"></script>
-    <script src="~/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
-    <script src="~/Scripts/jquery-3.2.1.min.js"  type="text/javascript"></script>
+﻿<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">儀錶板</h1>
+    </div>
+</div>
 
+<div class="row">
+    <div id="Statistics"></div>
+</div>
+
+<div class="row">
+    <div id="Chart"></div>
+</div>
+
+<div class="row">
+    <div id="InstantResults"></div>
+</div>
+
+@section Scripts {
+@Scripts.Render("~/Scripts/zingchart.min.js")
     <script>
-    $(document).ready(function () {
-        setInterval("startRequest()", 10000);
-    });
-    function startRequest() {
-        $.ajax({
-            type: 'GET',
-            url: '@Url.Action("Statistics", "Result")',
+        StatisticsRequest();
+        ChartRequest();
+        InstantResultsRequest();
+        $(document).ready(function () {
+            setInterval("StatisticsRequest()", 60000);
+            setInterval("InstantResultsRequest()", 60000);
+            setInterval("ChartRequest()", 60000);
+        });
+
+        function StatisticsRequest() {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Statistics", "Result")',
             success: function (result) {
-                $('#mainContent').html(result);
+                $('#Statistics').html(result);
             }
         })
-    }
+        }
+
+        function ChartRequest() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("Chart", "Result")',
+            success: function (result) {
+                $('#Chart').html(result);
+            }
+        })
+        }
+
+        function InstantResultsRequest() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("InstantResults", "Result")',
+            success: function (result) {
+                $('#InstantResults').html(result);
+            }
+        })
+        }
     </script>
-</header>
-
-<div id="mainContent">
-
-</div>
+}

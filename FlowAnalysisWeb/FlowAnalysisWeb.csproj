@@ -437,6 +437,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\zingchart.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -455,10 +456,6 @@
     <Content Include="Views\LockTables\Index.cshtml" />
     <Content Include="Views\Result\HistoricalRecord.cshtml" />
     <Content Include="Views\Result\Index.cshtml" />
-    <Content Include="Views\Result\Index2.cshtml" />
-    <Content Include="Views\Result\Index3.cshtml" />
-    <Content Include="Views\Result\Index45.cshtml" />
-    <Content Include="Views\Result\RefreshData.cshtml" />
     <Content Include="Views\WhiteLists\Create.cshtml" />
     <Content Include="Views\WhiteLists\Delete.cshtml" />
     <Content Include="Views\WhiteLists\Edit.cshtml" />
