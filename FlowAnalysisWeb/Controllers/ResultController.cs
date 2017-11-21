@@ -110,6 +110,11 @@ namespace FlowAnalysisWeb.Controllers
             return View(AnalysisResults);
         }
 
+        public ActionResult Time()
+        {
+            return View();
+        }
+
         public static string Conversion(int Input)
         {
             if (Input is 0)

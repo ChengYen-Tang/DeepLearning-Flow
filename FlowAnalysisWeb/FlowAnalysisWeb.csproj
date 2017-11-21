@@ -463,6 +463,7 @@
     <Content Include="Views\Result\InstantResults.cshtml" />
     <Content Include="Views\Result\Chart.cshtml" />
     <Content Include="Views\Result\Statistics.cshtml" />
+    <Content Include="Views\Result\Time.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
